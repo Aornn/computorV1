@@ -18,8 +18,6 @@ if (equation.count("=") != 1):
     print "Nombre de signes \'=\' incorrect"
     sys.exit(0)
 equation = equation.replace(' ', '')
-#equation = equation.replace('X^0', '1')
-#equation = equation.replace('^', '**')
 index = equation.find('=')
 i = 0
 while i < index:
@@ -83,20 +81,18 @@ if (power_1 >= 0):
     power_1 = "+" + str(power_1)
 if (power_2 >= 0):
     power_2 = "+" + str(power_2)
-#print "partie 1 : " + str(float(power_1) * float(power_1))
-#print "partie 2 : " + str(4 * float(power_2) * float(power_0))
 delta = (float(power_1) * float(power_1)) - (4 * float(power_2) * float(power_0))
 
 if (delta > 0):
     print "delta : " + str(delta) +" > 0"
     b = float(power_1) * -1
-    x_prime = (b + racine(delta)) / (2 * float(power_2))
-    x_seconde =(b - racine(delta)) / (2 * float(power_2))
-    print "les solutions sont : " + x_prime + " et " + x_seconde
+    x_prime = (b + delta**0.5) / (2 * float(power_2))
+    x_seconde =(b - delta**0.5) / (2 * float(power_2))
+    print "les solutions sont : " + str(x_prime) + " et " + str(x_seconde)
 elif (delta == 0):
     print "delta = 0"
 else:
     print "delta : " + str(delta) +" < 0"
     print "pas de solution"
-tot = str(power_0)  + str(power_1) +"*X"+str(power_2)+"*X^2"
+tot = str(power_0)  + str(power_1) +"X"+str(power_2)+"X^2"
 print "forme reduite : " + tot + " = 0"
