@@ -47,6 +47,9 @@ neutre = equation
 def isole_p(p):
     i = 0
     indexp0 = []
+    if equation.find('*X^' + str(p)) == -1:
+        p0 = "0"
+        return p0
     while i < len(equation):
         i = equation.find('*X^' + str(p), i)
         j = i-1
@@ -69,30 +72,34 @@ def isole_p(p):
         neutre = neutre.replace( indexp0[i]+ '*X^' + str(p), '')
         i += 1
     return p0
-
-power_0 = isole_p(0) #c
-power_1 = isole_p(1) #b
-power_2 = isole_p(2) #a
-power_0 += neutre
-power_0 = eval(power_0)
-power_1 = eval(power_1)
-power_2 = eval(power_2)
+power_2 = eval(isole_p(2)) #a
+power_1 = eval(isole_p(1)) #b
+power_0 = eval(isole_p(0) + neutre)
 if (power_1 >= 0):
     power_1 = "+" + str(power_1)
 if (power_2 >= 0):
     power_2 = "+" + str(power_2)
-delta = (float(power_1) * float(power_1)) - (4 * float(power_2) * float(power_0))
 
-if (delta > 0):
+
+delta = (float(power_1) * float(power_1)) - (4 * float(power_2) * float(power_0))
+if (delta > 0 and eval(power_2) != 0):
     print "delta : " + str(delta) +" > 0"
     b = float(power_1) * -1
     x_prime = (b + delta**0.5) / (2 * float(power_2))
     x_seconde =(b - delta**0.5) / (2 * float(power_2))
     print "les solutions sont : " + str(x_prime) + " et " + str(x_seconde)
+    tot = str(power_0)  + str(power_1) +"X"+str(power_2)+"X^2"
+    print "forme reduite : " + tot + " = 0"
 elif (delta == 0):
     print "delta = 0"
-else:
-    print "delta : " + str(delta) +" < 0"
-    print "pas de solution"
-tot = str(power_0)  + str(power_1) +"X"+str(power_2)+"X^2"
-print "forme reduite : " + tot + " = 0"
+    tot = str(power_0)  + str(power_1) +"X"+str(power_2)+"X^2"
+    print "forme reduite : " + tot + " = 0"
+elif (delta < 0):
+    print "delta = " + str(delta) + " < 0"
+    print "Pas de solution dans R"
+if (eval(power_2) == 0):
+    print "Degre 1"
+    tot1 = str(power_0)  + str(power_1) +"X"
+    ret = (float(power_0) * -1) / float(power_1)
+    print "Forme reduite : " + str(tot1)
+    print "Resultat :" + str(ret)
